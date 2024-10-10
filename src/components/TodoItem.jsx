@@ -37,7 +37,7 @@ function TodoItem({ todo, onDeleteTodo }) {
                   showCancelButton: true,
                   confirmButtonText: "Ya, Tetap Hapus",
                   customClass: {
-                    confirmButton: "btn btn-danger me-3 mb4",
+                    confirmButton: "btn btn-danger me-3 mb-4",
                     cancelButton: "btn btn-secondary mb-4",
                   },
                   buttonsStyling: false,
