@@ -136,10 +136,8 @@ const api = (() => {
     if (success !== true) {
       throw new Error(message);
     }
-    const {
-      data: { todo_id },
-    } = responseJson;
-    return todo_id;
+  
+    return message;
   }
   async function deleteTodo(id) {
     const response = await _fetchWithAuth(`${BASE_URL}/todos/${id}`, {

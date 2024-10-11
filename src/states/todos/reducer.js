@@ -31,9 +31,20 @@ function detailTodoReducer(todo = null, action = {}) {
       return todo;
   }
 }
+// Tambahkan reducer untuk update status
+function isUpdateTodoReducer(status = false, action = {}) {
+  switch (action.type) {
+    case ActionType.UPDATE_TODO:
+      return action.payload.status;
+    default:
+      return status;
+  }
+}
+
 export {
   todosReducer,
   isAddTodoReducer,
   isDeleteTodoReducer,
   detailTodoReducer,
+  isUpdateTodoReducer, // Tambahkan ini
 };
