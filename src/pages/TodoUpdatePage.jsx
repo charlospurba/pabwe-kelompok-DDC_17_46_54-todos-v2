@@ -34,6 +34,100 @@ function TodoUpdatePage() {
       });
     }
   }, [todo]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(showLoading());
+
+    try {
+      await dispatch(
+        asyncUpdateTodo({
+          id: todo.id, // pastikan ini tidak undefined
+          title: formData.title,
+          description: formData.description,
+          is_finished: Number(formData.is_finished),
+        })
+      );
+      navigate(`/todos/${todo.id}`); // Redirect after successful update
+    } catch (error) {
+      showErrorDialog(error.message);
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
+
+  if (!todo || !todo.id) {
+    // Tampilkan loading saat todo belum di-load
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div className="container mt-3">
+      <h3>Edit Todo</h3>
+
+      {/* Tampilkan pesan jika berhasil update */}
+      {isUpdateSuccess && (
+        <div className="alert alert-success">Todo updated successfully!</div>
+      )}
+
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="title" className="form-label">
+            Title
+          </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            className="form-control"
+            value={formData.title}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="description" className="form-label">
+            Description
+          </label>
+          <textarea
+            id="description"
+            name="description"
+            className="form-control"
+            rows="4"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="is_finished" className="form-label">
+            Status
+          </label>
+          <select
+            id="is_finished"
+            name="is_finished"
+            className="form-select"
+            value={formData.is_finished}
+            onChange={handleChange}
+          >
+            <option value={0}>Belum Selesai</option>
+            <option value={1}>Selesai</option>
+          </select>
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Update Todo
+        </button>
+      </form>
+    </div>
+  );
 }
 
 export default TodoUpdatePage;
