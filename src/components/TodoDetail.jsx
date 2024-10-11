@@ -37,6 +37,11 @@ function TodoDetail({ todo }) {
 
           {/* Tambahkan tombol Change Cover dan Edit */}
           <div className="col-12 text-end">
+            {/* Change Cover Button */}
+            <button className="btn btn-sm btn-secondary me-2">
+              Change Cover
+            </button>
+
             {/* Edit Button */}
             <Link
               to={`/todos/${todo.id}/edit`}
