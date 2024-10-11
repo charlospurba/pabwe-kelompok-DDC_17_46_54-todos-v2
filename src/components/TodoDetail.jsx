@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom"; // import Link to route to the update page
 import { todoItemShape } from "./TodoItem";
 import { postedAt } from "../utils/tools";
 import { FaClock } from "react-icons/fa6";
+
 function TodoDetail({ todo }) {
   let badgeStatus, badgeLabel;
   if (todo.is_finished) {
@@ -11,6 +13,7 @@ function TodoDetail({ todo }) {
     badgeStatus = "badge bg-warning text-dark ms-3";
     badgeLabel = "Belum Selesai";
   }
+
   return (
     <div className="card mt-3">
       <div className="card-body">
@@ -31,12 +34,25 @@ function TodoDetail({ todo }) {
             <hr />
             {todo.description}
           </div>
+
+          {/* Tambahkan tombol Change Cover dan Edit */}
+          <div className="col-12 text-end">
+            {/* Edit Button */}
+            <Link
+              to={`/todos/${todo.id}/edit`}
+              className="btn btn-sm btn-primary"
+            >
+              Edit
+            </Link>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
 TodoDetail.propTypes = {
   todo: PropTypes.shape(todoItemShape).isRequired,
 };
+
 export default TodoDetail;
